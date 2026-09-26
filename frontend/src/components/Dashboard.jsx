@@ -71,44 +71,44 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="p-8 space-y-6 overflow-y-auto h-full">
+    <div className="p-4 md:p-8 space-y-6 overflow-y-auto h-full">
       {/* Fila superior: racha + acciones */}
-      <div className="flex items-center justify-between">
-        <div className="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl px-6 py-4 text-white flex-1 mr-4">
+      <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+        <div className="bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl px-6 py-4 text-white flex-1">
           <p className="text-sm opacity-80">Racha de estudio</p>
           <p className="text-3xl font-bold mt-0.5">🔥 {perfil.racha_dias} {perfil.racha_dias === 1 ? "día" : "días"}</p>
         </div>
         <div className="flex gap-2">
           <button
             onClick={exportarPDF}
-            className="bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white text-sm font-medium px-4 py-2.5 rounded-xl transition-colors"
+            className="flex-1 sm:flex-none bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white text-sm font-medium px-4 py-2.5 rounded-xl transition-colors"
           >
-            📄 Exportar PDF
+            📄 PDF
           </button>
           <button
             onClick={exportarCSV}
-            className="bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white text-sm font-medium px-4 py-2.5 rounded-xl transition-colors"
+            className="flex-1 sm:flex-none bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white text-sm font-medium px-4 py-2.5 rounded-xl transition-colors"
           >
-            📑 Exportar CSV
+            📑 CSV
           </button>
         </div>
       </div>
 
       {/* Grid: info + gráficas */}
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div className="bg-slate-800 border border-slate-700/50 rounded-xl p-4">
           <p className="text-xs text-slate-400 mb-1">Nivel actual</p>
           <span className={`inline-block px-3 py-1 rounded-full text-xs font-medium text-white ${nivelColor}`}>
             {perfil.nivel}
           </span>
         </div>
-        <div className="bg-slate-800 border border-slate-700/50 rounded-xl p-4 col-span-2">
+        <div className="bg-slate-800 border border-slate-700/50 rounded-xl p-4 sm:col-span-2">
           <p className="text-xs text-slate-400 mb-1">Objetivo</p>
           <p className="text-sm text-white">{perfil.objetivo || "Aún no definido"}</p>
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {/* Gráfica de dona: temas vs errores */}
         <div className="bg-slate-800 border border-slate-700/50 rounded-xl p-4">
           <p className="text-xs text-slate-400 mb-2">Temas vs. errores</p>

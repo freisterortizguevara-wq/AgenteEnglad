@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 
-
 const API_URL = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000";
 
 export default function Ejercicios() {
@@ -41,12 +40,12 @@ export default function Ejercicios() {
   }
 
   if (cargando) {
-    return <div className="p-6 text-slate-400 text-sm">Generando ejercicio...</div>;
+    return <div className="p-4 md:p-6 text-slate-400 text-sm">Generando ejercicio...</div>;
   }
 
   if (!ejercicio || ejercicio.error) {
     return (
-      <div className="p-6 text-center">
+      <div className="p-4 md:p-6 text-center">
         <p className="text-red-400 text-sm mb-4">{ejercicio?.error || "Error al cargar."}</p>
         <button
           onClick={cargarEjercicio}
@@ -59,7 +58,7 @@ export default function Ejercicios() {
   }
 
   return (
-    <div className="p-8 max-w-xl mx-auto h-full overflow-y-auto">
+    <div className="p-4 md:p-8 max-w-xl mx-auto h-full overflow-y-auto">
       {/* Racha de aciertos */}
       <div className="flex items-center justify-between mb-6">
         <span className="text-xs px-3 py-1 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30">

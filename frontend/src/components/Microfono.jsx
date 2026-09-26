@@ -74,7 +74,7 @@ export default function Microfono() {
 
   if (!soportado) {
     return (
-      <div className="p-8 text-center">
+      <div className="p-4 md:p-8 text-center">
         <p className="text-amber-400 text-sm">
           ⚠️ Tu navegador no soporta reconocimiento de voz. Usa Google Chrome o Microsoft Edge para esta función.
         </p>
@@ -83,18 +83,18 @@ export default function Microfono() {
   }
 
   if (cargando) {
-    return <div className="p-6 text-slate-400 text-sm">Generando frase de práctica...</div>;
+    return <div className="p-4 md:p-6 text-slate-400 text-sm">Generando frase de práctica...</div>;
   }
 
   if (!frase || frase.error) {
-    return <div className="p-6 text-red-400 text-sm">{frase?.error || "Error al cargar la frase."}</div>;
+    return <div className="p-4 md:p-6 text-red-400 text-sm">{frase?.error || "Error al cargar la frase."}</div>;
   }
 
   return (
-    <div className="p-8 max-w-xl mx-auto h-full overflow-y-auto">
+    <div className="p-4 md:p-8 max-w-xl mx-auto h-full overflow-y-auto">
       {/* Frase objetivo */}
       <div className="bg-slate-800 border border-slate-700/50 rounded-2xl p-6 mb-4 text-center">
-        <p className="text-2xl text-white font-semibold mb-2">{frase.frase}</p>
+        <p className="text-xl sm:text-2xl text-white font-semibold mb-2">{frase.frase}</p>
         <p className="text-sm text-slate-400">{frase.traduccion}</p>
       </div>
 
@@ -115,7 +115,7 @@ export default function Microfono() {
         >
           🎤
         </button>
-        <p className="text-sm text-slate-400">
+        <p className="text-sm text-slate-400 text-center">
           {grabando ? "Escuchando... habla ahora" : "Toca para grabar tu pronunciación"}
         </p>
       </div>
