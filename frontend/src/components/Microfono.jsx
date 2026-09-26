@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 
-const API_URL = "http://127.0.0.1:8000";
+const API_URL = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000";
 
 function calcularSimilitud(objetivo, dicho) {
   const limpiar = (s) => s.toLowerCase().replace(/[^\w\s]/g, "").trim().split(/\s+/);

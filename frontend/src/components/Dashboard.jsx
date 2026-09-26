@@ -5,7 +5,7 @@ import {
 } from "recharts";
 import { jsPDF } from "jspdf";
 
-const API_URL = "http://127.0.0.1:8000";
+const API_URL = import.meta.env.VITE_API_URL || "http://127.0.0.1:8000";
 const COLORES = ["#6366f1", "#f59e0b"];
 
 export default function Dashboard() {
