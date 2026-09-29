@@ -34,7 +34,7 @@ from memoria import (
     guardar_ejercicio,
     ejercicios_recientes,
     estadisticas_dificultad,
-    marcar_ejercicio_contestado,   # ← NUEVO
+    marcar_ejercicio_contestado,
     # listening
     guardar_listening,
     listenings_recientes,
@@ -149,7 +149,7 @@ class RespuestaEntrada(BaseModel):
     tema: str
     correcto: bool
     detalle: str | None = None
-    pregunta: str | None = None     # ← NUEVO (para marcar ejercicio contestado)
+    pregunta: str | None = None
 
 class PalabraEntrada(BaseModel):
     user_id: str = "default"
@@ -223,23 +223,19 @@ def reset_chat(user_id: str = "default"):
 
 
 # ------------------------------------------------------------------
-# RESPUESTAS (alimenta evolución + dificultad adaptativa)
+# RESPUESTAS
 # ------------------------------------------------------------------
 @app.post("/api/respuesta")
 def registrar_respuesta_endpoint(entrada: RespuestaEntrada):
     try:
-        # 1. Registrar evento (para progreso y objetivo adaptativo)
         msg = registrar_respuesta(
             entrada.user_id, entrada.tema,
             entrada.correcto, entrada.detalle,
         )
-
-        # 2. Marcar el ejercicio como contestado (para estadisticas_dificultad)
         if entrada.pregunta:
             marcar_ejercicio_contestado(
                 entrada.user_id, entrada.pregunta, entrada.correcto
             )
-
         return {"ok": True, "mensaje": msg}
     except Exception as e:
         return {"ok": False, "error": str(e)}
@@ -267,7 +263,7 @@ def obtener_videos(user_id: str = "default", tema: str | None = None):
 
 
 # ------------------------------------------------------------------
-# EJERCICIO (sin repetición, didáctico, adaptativo)
+# EJERCICIO
 # ------------------------------------------------------------------
 @app.get("/api/ejercicio")
 def generar_ejercicio(user_id: str = "default"):
@@ -328,7 +324,7 @@ Responde SOLO con JSON válido, sin markdown:
   "pregunta": "pregunta o frase a completar",
   "opciones": ["A", "B", "C", "D"],
   "respuesta_correcta": "texto exacto",
-  "explicacion": "explicación didáctica en español con regla + por qué falla cada distractor",
+  "explicacion": "explicación didáctica en español",
   "regla_clave": "frase corta con la regla mnemotécnica"
 }}"""
 
@@ -366,8 +362,6 @@ CONTEXTO:
 - Objetivo: {perfil['objetivo'] or 'general'}
 - Objetivo adaptativo: {objetivo_adaptativo}
 - Temas a reforzar: {', '.join(progreso['a_reforzar']) or 'ninguno'}
-
-PRIORIZA temas del objetivo adaptativo.
 
 Responde SOLO con JSON válido, sin markdown:
 {{
@@ -484,7 +478,7 @@ LISTENINGS RECIENTES (NO REPITAS tema ni situación):
 
 INSTRUCCIONES:
 1. Crea un diálogo corto (4-6 intercambios) entre 2 personas, en inglés NATURAL.
-2. Contextualízalo en una situación real (aeropuerto, restaurante, entrevista, etc.).
+2. Contextualízalo en una situación real.
 3. Vocabulario y velocidad acordes al nivel.
 4. Genera 3 preguntas de comprensión con 4 opciones cada una.
 5. NUNCA repitas situación de la lista de arriba.
